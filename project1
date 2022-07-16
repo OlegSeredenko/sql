@@ -1,0 +1,46 @@
+#допустим мы работаем с книжным интернет-магазином. мы должны сделать таблицу с книгами, клиентами, складом
+
+#создаем таблицу с клиентами
+CREATE TABLE customers (
+ id INT, first_name VARCHAR (20), last_name VARCHAR (50), birthday DATE, number VARCHAR (12), email VARCHAR (30)
+)
+;
+
+#заполняем данные по клиентам
+INSERT INTO customers (id, first_name, last_name, birthday, number,email) VALUES (1, 'Дмитрий', 'Иванов', '1990-08-12','89997418732','fder@mail.ru'),(2, 'Светлана', 'Демчук', '1991-07-08','89997987432','fhvrfr@yandex.ru'), 
+(3, 'Денис', 'Антонов', '1997-12-23','89658748532','fhvrfr@bk.ru'),(4, 'Олег', 'Козлов', '1989-07-08','89095418532','fhvsqqqqr@yandex.ru'), (5, 'Виталий', 'Морозов', '1985-12-23','89287518532','fqqssfr@yandex.ru'),
+(6, 'Кристина', 'Ясная', '1999-07-08','89997417412','fhqqqqqqq@yandex.ru'), (7, 'Артем', 'Артемов', '1996-12-23','89287418842','fhvrfr@gmail.com'),(8, 'Геннадий', 'Тарчук', '1993-07-08','89287416432','fhvrfssqqr@gmail.com'), (9, 'Роман', 'Жилкин', '1996-12-23','89657418472','fhvrfr@sun.com'), (10, 'Мария', 'Петрова', '1992-12-23','89657418574','fhvrfr@rambler.ru');
+
+#создаем таблицу с книгами на складе
+CREATE TABLE stock (
+ id INT, title VARCHAR (40), author VARCHAR (30), amount SMALLINT UNSIGNED,typelanguage VARCHAR (4)
+)
+;
+
+#заполняем данные по книгам на складе
+INSERT INTO stock (id, title, author, amount, typelanguage) VALUES (1, 'Мастер и Маргарита','Булгаков М.А.',100,'RUS'),(2, 'Белая гвардияа','Булгаков М.А.',24,'RUS'),
+(3, 'Идиот','Достоевский Ф.М.',41,'RUS'),(4, 'Братья Карамазовы','Достоевский Ф.М.',25,'RUS'),
+(5, 'Игрок','Достоевский Ф.М.',10,'RUS'),(6, 'Стихотворения и поэмы','Есенин С.А.',41,'RUS'),
+(7, 'Гроздья гнева','Джон Стейнбек',100,'ENG'),(8, 'Повелитель мух','Уильям Голдинг',36,'ENG');
+
+#создаем таблицу с книгами в магазине
+CREATE TABLE store (
+ id INT, title VARCHAR (40), author VARCHAR (30), amount SMALLINT UNSIGNED,typelanguage VARCHAR (4)
+)
+;
+
+INSERT INTO store (id, title, author, amount, typelanguage) VALUES (1, 'Мастер и Маргарита','Булгаков М.А.',1,'RUS'),(2, 'Белая гвардияа','Булгаков М.А.',9,'RUS'),
+(3, 'Идиот','Достоевский Ф.М.',8,'RUS'),(4, 'Братья Карамазовы','Достоевский Ф.М.',6,'RUS'),
+(5, 'Игрок','Достоевский Ф.М.',5,'RUS'),(6, 'Стихотворения и поэмы','Есенин С.А.',4,'RUS'),
+(7, 'Гроздья гнева','Джон Стейнбек',20,'ENG'),(8, 'Повелитель мух','Уильям Голдинг',9,'ENG');
+
+#допустим нам нужно узнать количесвто книг на английском языке на складе и в магазине
+SELECT * FROM
+(SELECT SUM(amount) AS amountENG FROM stock WHERE typelanguage = 'ENG'
+UNION
+SELECT SUM(amount) AS amountENG FROM store WHERE typelanguage = 'ENG'
+)
+amountRUS;
+
+
+
